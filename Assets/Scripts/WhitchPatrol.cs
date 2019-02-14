@@ -5,26 +5,37 @@ using UnityEngine;
 public class WhitchPatrol : MonoBehaviour
 {
     public float speed;
+    private float waitTime;
+    public float startWaitTime;
 
-    private bool movingRight = true;
 
-    public Transform collisionDetection;
+    public Transform moveSpot;
+    public float minX;
+    public float maxX;
+    public float minY;
+    public float maxY;
 
-    void Update(){
+    private void Start()
+    {
+        waitTime = startWaitTime;
 
-        transform.Translate(Vector2.right * speed * Time.deltaTime);
+        moveSpot.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
+    }
 
-        RaycastHit2D collisioninfo = Physics2D.Raycast(collisionDetection.position, Vector2.down, 2f);
-        if(collisioninfo.collider == false){
-            if(movingRight == true){
-                transform.eulerAngles = new Vector3(0, -180, 0);
-                movingRight = false;
+    private void Update()
+    {
+        transform.position = Vector2.MoveTowards(transform.position, moveSpot.position, speed * Time.deltaTime);
+
+        if (Vector2.Distance(transform.position, moveSpot.position) < 0.2f)
+        {
+            if (waitTime <= 0)
+            {
+                moveSpot.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
+                waitTime = startWaitTime;
             }
             else
             {
-                transform.eulerAngles = new Vector3(0, 0, 0);
-                movingRight = true;
-
+                waitTime -= Time.deltaTime;
             }
         }
     }

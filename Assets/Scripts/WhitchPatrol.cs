@@ -39,12 +39,22 @@ public class WhitchPatrol : MonoBehaviour
             {
                 moveSpot.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
                 waitTime = startWaitTime;
+
+                if (moveSpot.position.x <= transform.position.x)
+                {
+                    transform.eulerAngles = new Vector3(0, -180, 0);
+                }
+                else
+                {
+                    transform.eulerAngles = new Vector3(0, 0, 0);
+                }
             }
             else
             {
                 waitTime -= Time.deltaTime;
             }
         }
+
         if (timeBtwShots <= 0)
         {
             Instantiate(projectile, transform.position, Quaternion.identity);

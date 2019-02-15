@@ -22,6 +22,15 @@ public class Projectile : MonoBehaviour
     {
         transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
+        if (transform.position.x <= player.position.x)
+        {
+            transform.eulerAngles = new Vector3(0, -180, 0);
+        }
+        else
+        {
+            transform.eulerAngles = new Vector3(0, 0, 0);
+        }
+
         if (transform.position.x == target.x && transform.position.y == target.y)
         {
             DestroyProjectile();

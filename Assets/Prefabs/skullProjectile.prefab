@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5640273293059120919}
   - component: {fileID: 8490443239928297512}
+  - component: {fileID: 6402786894370166649}
   - component: {fileID: 4576033056405704827}
   m_Layer: 0
   m_Name: skullProjectile
@@ -80,6 +81,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &6402786894370166649
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376200749752167683}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 458c0e6b7011f4b928716593034c8950, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &4576033056405704827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,4 +112,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca849e7adeaaa4cb89f2521f053d0d99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
+  speed: 10

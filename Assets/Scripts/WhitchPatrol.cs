@@ -5,11 +5,17 @@ using UnityEngine;
 public class WhitchPatrol : MonoBehaviour
 {
     public float speed;
+
     private float waitTime;
     public float startWaitTime;
 
+    private float timeBtwShots;
+    public float startTimeBtwShots;
+
+    public GameObject projectile;
 
     public Transform moveSpot;
+
     public float minX;
     public float maxX;
     public float minY;
@@ -18,6 +24,7 @@ public class WhitchPatrol : MonoBehaviour
     private void Start()
     {
         waitTime = startWaitTime;
+        timeBtwShots = startTimeBtwShots;
 
         moveSpot.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
     }
@@ -37,6 +44,15 @@ public class WhitchPatrol : MonoBehaviour
             {
                 waitTime -= Time.deltaTime;
             }
+        }
+        if (timeBtwShots <= 0)
+        {
+            Instantiate(projectile, transform.position, Quaternion.identity);
+            timeBtwShots = startTimeBtwShots;
+        }
+        else
+        {
+            timeBtwShots -= Time.deltaTime;
         }
     }
 }

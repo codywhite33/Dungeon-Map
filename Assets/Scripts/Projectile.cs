@@ -6,6 +6,8 @@ public class Projectile : MonoBehaviour
 {
     public float speed;
 
+    public GameObject projectileImpact;
+
     private Transform player;
     private Vector2 target;
 
@@ -33,17 +35,14 @@ public class Projectile : MonoBehaviour
 
         if (transform.position.x == target.x && transform.position.y == target.y)
         {
+            Instantiate(projectileImpact, transform.position, transform.rotation);
             DestroyProjectile();
         }
-
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
-        {
-            DestroyProjectile();
-        }
+        Destroy(gameObject);
     }
 
     void DestroyProjectile()

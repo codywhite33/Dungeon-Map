@@ -987,8 +987,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96e100af230dc4f518ac2010087a8ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
   damage: 1
+  startHealth: 100
+  worth: 50
+  deathEffect: {fileID: 0}
+  healthBar: {fileID: 1283449593}
 --- !u!1 &735204463
 GameObject:
   m_ObjectHideFlags: 0

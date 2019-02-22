@@ -25,21 +25,19 @@ public class Whitch : MonoBehaviour
         health = startHealth;
     }
 
-    public void TakeDamage (float amount)
+    public void TakeDamage (int damage)
     {
-        health -= amount;
+        health -= damage;
 
         healthBar.fillAmount = health / startHealth;
-
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

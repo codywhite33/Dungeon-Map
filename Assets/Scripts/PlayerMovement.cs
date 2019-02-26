@@ -13,6 +13,18 @@ public class PlayerMovement : MonoBehaviour
     float horizontalMove = 0f;
     bool jump = false;
     bool crouch = false;
+    bool attack = false;
+
+    public int damage;
+
+    private float attackTimer = 0;
+    private float attackCoolDown = 0.3f;
+
+    public Transform attackPos;
+    public float attackRange;
+
+    public LayerMask whatIsEnemies;
+
 
     // Update is called once per frame
     void Update()
@@ -21,12 +33,14 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
+        //Jump
         if (Input.GetButtonDown("Jump"))
         {
             jump = true;
             animator.SetBool("isJumping", true);
         }
 
+        //Crouch (i.e Roll)
         if (Input.GetButtonDown("Crouch"))
         {
             crouch = true;
@@ -35,6 +49,33 @@ public class PlayerMovement : MonoBehaviour
         {
             crouch = false;
         }
+
+        //Attack
+        if (Input.GetButtonDown("Attack") && !attack)
+        {
+            attack = true;
+            attackTimer = attackCoolDown;
+
+            Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
+            for (int i = 0; i < enemiesToDamage.Length; i++)
+            {
+                enemiesToDamage[i].GetComponent<Whitch>().TakeDamage(damage);
+            }
+        }
+
+        if (attack)
+        {
+            if (attackTimer >= 0)
+            {
+                attackTimer -= Time.deltaTime;
+            }
+            else
+            {
+                attack = false;
+            }
+        }
+
+        animator.SetBool("isAttacking", attack);
     }
 
     public void OnLanding ()
@@ -52,5 +93,6 @@ public class PlayerMovement : MonoBehaviour
         // Move Character
         controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
+        attack = false;
     }
 }

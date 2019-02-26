@@ -10,19 +10,23 @@ public class PlayerAttack : MonoBehaviour
 
     public Transform attackPos;
     public float attackRange;
+
     public LayerMask whatIsEnemies;
     public int damage;
     public Animator playerAnim;
+
+    bool attack = false;
 
 
     // Update is called once per frame
     void Update()
     {
         if (timeBtwnAttack <= 0)
-        {
-            if (Input.GetKey(KeyCode.Space))
+        { 
+            if (Input.GetButtonDown("Attack"))
             {
-                playerAnim.SetTrigger("attack");
+
+                playerAnim.SetBool("isAttacking", true);
                 Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
                 for (int i = 0; i < enemiesToDamage.Length; i++)
                 {
@@ -31,10 +35,12 @@ public class PlayerAttack : MonoBehaviour
             }
 
             timeBtwnAttack = startTimeBtwnAttack;
+            attack = false;
         }
         else
         {
             timeBtwnAttack -= Time.deltaTime;
+            attack = false;
         }
 
         void OnDrawGizmosSelected()
